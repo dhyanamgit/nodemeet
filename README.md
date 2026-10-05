@@ -16,12 +16,12 @@
 ## Install
 
 ```bash
-pip install "nodemeet @ git+https://github.com/dhyanamgit/nodemeet"            # core + aiohttp server
-pip install "nodemeet[sfu] @ git+https://github.com/dhyanamgit/nodemeet"       # + aiortc SFU for rooms larger than 4
-pip install "nodemeet[redis] @ git+https://github.com/dhyanamgit/nodemeet"     # + several servers behind a load balancer
-pip install "nodemeet[postgres] @ git+https://github.com/dhyanamgit/nodemeet"  # + SQLAlchemy storage (also [mysql], [sql])
-pip install "nodemeet[asgi] @ git+https://github.com/dhyanamgit/nodemeet"      # + uvicorn, to serve the ASGI app
-pip install "nodemeet[all] @ git+https://github.com/dhyanamgit/nodemeet"       # everything
+pip install "nodemeet"            # core + aiohttp server
+pip install "nodemeet[sfu]"       # + aiortc SFU for rooms larger than 4
+pip install "nodemeet[redis]"     # + several servers behind a load balancer
+pip install "nodemeet[postgres]"  # + SQLAlchemy storage (also [mysql], [sql])
+pip install "nodemeet[asgi]"      # + uvicorn, to serve the ASGI app
+pip install "nodemeet[all]"       # everything
 ```
 Or download the wheel from the [latest release](https://github.com/dhyanamgit/nodemeet/releases/latest) and `pip install` it.
 
