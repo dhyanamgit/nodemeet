@@ -1,0 +1,123 @@
+# Real databases for nodemeet's storage tests.
+#   docker compose up -d --wait                  -> core set (7 databases, ~2.5 GB RAM)
+#   docker compose --profile full up -d --wait   -> everything (19, ~7 GB RAM; Oracle/Cassandra are slow to start)
+#   docker compose --profile full down -v        -> stop and delete all data
+name: nodemeet-tests
+
+x-health: &health
+  interval: 3s
+  timeout: 5s
+  retries: 60
+
+services:
+  # ---------------- core ----------------
+  postgres:
+    image: postgres:16
+    environment: { POSTGRES_PASSWORD: nm, POSTGRES_DB: nodemeet }
+    ports: ["5432:5432"]
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U postgres"], <<: *health }
+  mysql:
+    image: mysql:8.4
+    environment: { MYSQL_ROOT_PASSWORD: nm, MYSQL_DATABASE: nodemeet }
+    ports: ["3306:3306"]
+    healthcheck: { test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-pnm"], <<: *health }
+  mariadb:
+    image: mariadb:11
+    environment: { MARIADB_ROOT_PASSWORD: nm, MARIADB_DATABASE: nodemeet }
+    ports: ["3307:3306"]
+    healthcheck: { test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"], <<: *health }
+  mongo:
+    image: mongo:7
+    ports: ["27017:27017"]
+    healthcheck: { test: ["CMD", "mongosh", "--quiet", "--eval", "db.runCommand({ping: 1}).ok"], <<: *health }
+  redis:
+    image: redis:7
+    ports: ["6379:6379"]
+    healthcheck: { test: ["CMD", "redis-cli", "ping"], <<: *health }
+  couchdb:
+    image: couchdb:3
+    environment: { COUCHDB_USER: admin, COUCHDB_PASSWORD: nm }
+    ports: ["5984:5984"]
+    healthcheck: { test: ["CMD-SHELL", "curl -fs http://admin:nm@localhost:5984/_up"], <<: *health }
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.3
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    ports: ["9200:9200"]
+    healthcheck: { test: ["CMD-SHELL", "curl -fs http://localhost:9200/_cluster/health"], <<: *health }
+
+  # ---------------- full (--profile full) ----------------
+  cockroach:
+    image: cockroachdb/cockroach:latest-v24.2
+    command: start-single-node --insecure
+    ports: ["26257:26257"]
+    profiles: [full]
+    healthcheck: { test: ["CMD", "curl", "-fs", "http://localhost:8080/health?ready=1"], <<: *health }
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment: { ACCEPT_EULA: "Y", MSSQL_SA_PASSWORD: "Nodemeet_Passw0rd" }
+    ports: ["1433:1433"]
+    profiles: [full]
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P Nodemeet_Passw0rd -Q 'SELECT 1' || exit 1"]
+      <<: *health
+  oracle:
+    image: gvenzl/oracle-free:23-slim
+    environment: { ORACLE_PASSWORD: nm, APP_USER: nm, APP_USER_PASSWORD: nm }
+    ports: ["1521:1521"]
+    profiles: [full]
+    healthcheck: { test: ["CMD", "healthcheck.sh"], interval: 10s, timeout: 10s, retries: 60 }
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.8
+    environment: { CLICKHOUSE_USER: default, CLICKHOUSE_PASSWORD: nm, CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: "1" }
+    ports: ["9009:9000"]
+    profiles: [full]
+    healthcheck: { test: ["CMD-SHELL", "clickhouse-client --password nm -q 'SELECT 1'"], <<: *health }
+  neo4j:
+    image: neo4j:5
+    environment: { NEO4J_AUTH: neo4j/nodemeet-pass }
+    ports: ["7687:7687"]
+    profiles: [full]
+    healthcheck: { test: ["CMD-SHELL", "wget -qO- http://localhost:7474 || exit 1"], <<: *health }
+  arangodb:
+    image: arangodb:3.12
+    environment: { ARANGO_ROOT_PASSWORD: nm }
+    ports: ["8529:8529"]
+    profiles: [full]
+    healthcheck: { test: ["CMD-SHELL", "wget -qO- --user root --password nm http://localhost:8529/_api/version || exit 1"], <<: *health }
+  etcd:
+    image: quay.io/coreos/etcd:v3.5.15
+    command: ["etcd", "--listen-client-urls=http://0.0.0.0:2379", "--advertise-client-urls=http://localhost:2379"]
+    ports: ["2379:2379"]
+    profiles: [full]
+    healthcheck: { test: ["CMD", "etcdctl", "endpoint", "health"], <<: *health }
+  consul:
+    image: hashicorp/consul:1.19
+    command: ["agent", "-dev", "-client=0.0.0.0"]
+    ports: ["8500:8500"]
+    profiles: [full]
+    healthcheck: { test: ["CMD", "consul", "members"], <<: *health }
+  minio:
+    image: minio/minio
+    command: ["server", "/data"]
+    environment: { MINIO_ROOT_USER: nodemeet, MINIO_ROOT_PASSWORD: nodemeet-secret }
+    ports: ["9000:9000"]
+    profiles: [full]
+    healthcheck: { test: ["CMD", "mc", "ready", "local"], <<: *health }
+  minio-bucket:
+    image: minio/mc
+    depends_on: { minio: { condition: service_healthy } }
+    entrypoint: ["sh", "-c", "mc alias set m http://minio:9000 nodemeet nodemeet-secret && mc mb -p m/nodemeet"]
+    profiles: [full]
+  dynamodb:
+    image: amazon/dynamodb-local
+    ports: ["8000:8000"]
+    profiles: [full]
+  cassandra:
+    image: cassandra:5
+    environment: { MAX_HEAP_SIZE: 512M, HEAP_NEWSIZE: 128M }
+    ports: ["9042:9042"]
+    profiles: [full]
+    healthcheck: { test: ["CMD-SHELL", "cqlsh -e 'describe keyspaces'"], interval: 10s, timeout: 10s, retries: 60 }

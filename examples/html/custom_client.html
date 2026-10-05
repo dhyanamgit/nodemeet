@@ -1,0 +1,16 @@
+<!doctype html>
+<html><body>
+<div id="videos"></div><button id="mute">Mute</button>
+<script src="http://localhost:8080/static/nodemeet.js"></script>
+<script>
+  const client = new NodeMeet.Client({ base: 'http://localhost:8080', token: 'PASTE_TOKEN' });
+  client.on('stream', ({ peerId, stream }) => {
+    let v = document.getElementById(peerId) || Object.assign(document.createElement('video'), { id: peerId, autoplay: true, playsInline: true });
+    v.srcObject = stream; document.getElementById('videos').append(v);
+  });
+  client.on('stream-removed', ({ peerId }) => document.getElementById(peerId)?.remove());
+  client.on('chat', (m) => console.log(m.name + ': ' + m.text));
+  document.getElementById('mute').onclick = () => client.toggleAudio();
+  client.join();
+</script>
+</body></html>

@@ -1,0 +1,5 @@
+include LICENSE README.md CHANGELOG.md
+recursive-include src/nodemeet/static *
+recursive-include src/nodemeet/templates *
+recursive-include tests *.py
+recursive-include examples *

@@ -1,0 +1,16 @@
+name: Feature request
+description: An idea for nodemeet
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes: { label: What are you trying to build?, description: What's missing or awkward today? }
+    validations: { required: true }
+  - type: textarea
+    id: idea
+    attributes: { label: What would you like the API or UI to look like? }
+  - type: checkboxes
+    id: help
+    attributes:
+      label: Can you help build it?
+      options: [{ label: "I'd like to open a pull request for this" }]

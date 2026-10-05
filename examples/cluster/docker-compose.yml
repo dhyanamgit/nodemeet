@@ -1,0 +1,24 @@
+# Three nodemeet servers + Redis + Postgres + nginx, all free software.
+#   docker compose up --build   ->  http://localhost:8080
+services:
+  redis:
+    image: redis:7-alpine
+  db:
+    image: postgres:16-alpine
+    environment: { POSTGRES_USER: nm, POSTGRES_PASSWORD: nm, POSTGRES_DB: nm }
+  nodemeet: &node
+    image: python:3.12-slim
+    command: sh -c "pip install 'nodemeet[all,postgres]' && nodemeet serve --host 0.0.0.0 --port 8080 --trust-proxy"
+    environment:
+      NODEMEET_SECRET: change-me-same-on-every-node
+      NODEMEET_API_KEY: change-me-master-key
+      NODEMEET_BASE_URL: http://localhost:8080
+      NODEMEET_REDIS_URL: redis://redis:6379/0
+      NODEMEET_DB_URL: postgresql+asyncpg://nm:nm@db/nm
+    depends_on: [redis, db]
+    deploy: { replicas: 3 }
+  nginx:
+    image: nginx:alpine
+    ports: ["8080:80"]
+    volumes: ["./nginx.conf:/etc/nginx/conf.d/default.conf:ro"]
+    depends_on: [nodemeet]
