@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en" data-theme="{{THEME}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}} · book a time</title>
+<style>body{margin:0;background:#f5f6fa;font-family:system-ui,sans-serif}.wrap{max-width:760px;margin:40px auto;padding:0 16px}</style>
+{{HEAD}}
+</head>
+<body>
+<div class="wrap"><div id="booking"></div></div>
+<script>window.NODEMEET_PAGE = {{CONFIG}};</script>
+<script src="{{BASE}}/static/nodemeet.js?v={{VERSION}}"></script>
+<script src="{{BASE}}/static/booking-widget.js?v={{VERSION}}"></script>
+<script>
+(function () {
+  var cfg = window.NODEMEET_PAGE;
+  NodeMeet.BookingWidget.mount('#booking', { base: cfg.base, host: cfg.host, manage: cfg.manage });
+})();
+</script>
+</body>
+</html>

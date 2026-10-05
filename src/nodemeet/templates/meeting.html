@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" data-theme="{{THEME}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>{{TITLE}} · meeting</title>
+<link rel="stylesheet" href="{{BASE}}/static/nodemeet.css?v={{VERSION}}">
+{{HEAD}}
+<style>html,body{margin:0;height:100%;background:#0f1115}#meeting{height:100vh;height:100dvh}</style>
+</head>
+<body>
+<div id="meeting"></div>
+<script>window.NODEMEET_PAGE = {{CONFIG}};</script>
+<script src="{{BASE}}/static/nodemeet.js?v={{VERSION}}"></script>
+<script src="{{BASE}}/static/nodemeet-ui.js?v={{VERSION}}"></script>
+<script>
+(function () {
+  var cfg = window.NODEMEET_PAGE;
+  var key = 'nodemeet:token:' + cfg.room;
+  var hash = new URLSearchParams(location.hash.slice(1));
+  var token = hash.get('token') || new URLSearchParams(location.search).get('token');
+  if (token) {
+    try { sessionStorage.setItem(key, token); } catch (e) {}
+    history.replaceState(null, '', location.pathname);   // keep the token out of the address bar
+  } else {
+    try { token = sessionStorage.getItem(key); } catch (e) {}
+  }
+  var root = document.getElementById('meeting');
+  if (!token && cfg.sso) { location.href = cfg.sso; return; }
+  if (!token) {
+    root.innerHTML = '<div class="nm-root"><div class="nm-prejoin"><div class="nm-card"><h2>Missing invite</h2><p>Open this meeting using the link you were given.</p></div></div></div>';
+    return;
+  }
+  NodeMeet.UI.mount(root, { base: cfg.base, token: token, room: cfg.room, title: cfg.room, branding: cfg.branding });
+})();
+</script>
+</body>
+</html>

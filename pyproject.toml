@@ -1,0 +1,85 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nodemeet"
+version = "0.9.5"
+description = "Embed live video meetings and scheduling into your own Python apps. Self-hosted, free for noncommercial use."
+readme = "README.md"
+license = { text = "PolyForm-Noncommercial-1.0.0" }
+authors = [{ name = "Dhyanam Shah" }]
+requires-python = ">=3.10"
+keywords = ["webrtc", "video", "meetings", "scheduling", "booking", "aiohttp", "asgi", "fastapi", "django", "sfu", "calendar", "multi-tenant"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Framework :: AsyncIO",
+    "Framework :: aiohttp",
+    "Intended Audience :: Developers",
+    "License :: Other/Proprietary License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Communications :: Conferencing",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+    "Topic :: Office/Business :: Scheduling",
+    "Typing :: Typed",
+]
+# aiohttp gives you `nodemeet serve` out of the box. The core itself (tokens,
+# scheduling, storage, ASGI adapter) never imports it.
+dependencies = [
+    "aiohttp>=3.8",
+    "tzdata; platform_system == 'Windows'",
+]
+
+[project.optional-dependencies]
+aiohttp = ["aiohttp>=3.8"]
+asgi = ["uvicorn[standard]>=0.23"]
+sfu = ["aiortc>=1.6"]
+redis = ["redis>=5.0"]
+sql = ["sqlalchemy[asyncio]>=2.0"]
+postgres = ["sqlalchemy[asyncio]>=2.0", "asyncpg>=0.28"]
+mysql = ["sqlalchemy[asyncio]>=2.0", "aiomysql>=0.2"]
+mongo = ["pymongo>=4.9"]
+aws = ["boto3>=1.28"]
+cassandra = ["cassandra-driver>=3.28"]
+neo4j = ["neo4j>=5.0"]
+firestore = ["google-cloud-firestore>=2.11"]
+lmdb = ["lmdb>=1.4"]
+foundationdb = ["foundationdb>=7.1"]
+oracle = ["oracledb>=2.0"]
+mssql = ["pymssql>=2.2"]
+duckdb = ["duckdb>=0.9"]
+snowflake = ["snowflake-connector-python>=3.0"]
+clickhouse = ["clickhouse-driver>=0.2"]
+db2 = ["ibm_db>=3.2"]
+hana = ["hdbcli>=2.17"]
+firebird = ["firebird-driver>=1.8"]
+captions = ["faster-whisper>=1.0"]
+push = ["cryptography>=41"]
+saml = ["python3-saml>=1.15"]
+yaml = ["pyyaml>=6.0"]
+toml = ["tomli>=2.0; python_version < '3.11'"]
+all = ["aiohttp>=3.8", "cryptography>=41", "uvicorn[standard]>=0.23", "aiortc>=1.6", "redis>=5.0",
+       "sqlalchemy[asyncio]>=2.0", "aiosqlite>=0.19"]
+dev = ["pytest>=7", "aiohttp>=3.8", "sqlalchemy[asyncio]>=2.0", "aiosqlite>=0.19"]
+
+[project.scripts]
+nodemeet = "nodemeet.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/dhyanamgit/nodemeet"
+Issues = "https://github.com/dhyanamgit/nodemeet/issues"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+nodemeet = ["py.typed", "static/*", "templates/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

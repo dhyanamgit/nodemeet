@@ -1,0 +1,7 @@
+# Unit tests (no servers needed):  python -m pytest tests -q
+pytest>=8
+aiohttp>=3.9
+sqlalchemy[asyncio]>=2.0
+aiosqlite>=0.19
+cryptography>=41
+duckdb>=1.0
