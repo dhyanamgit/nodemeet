@@ -1,0 +1,21 @@
+{
+  "projectName": "nodemeet",
+  "projectOwner": "dhyanamgit",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": ["CONTRIBUTORS.md"],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "none",
+  "contributorsPerLine": 7,
+  "linkToUsage": false,
+  "contributors": [
+    {
+      "login": "dhyanamgit",
+      "name": "Dhyanam Shah",
+      "avatar_url": "https://avatars.githubusercontent.com/dhyanamgit",
+      "profile": "https://github.com/dhyanamgit",
+      "contributions": ["code", "maintenance", "ideas"]
+    }
+  ]
+}
