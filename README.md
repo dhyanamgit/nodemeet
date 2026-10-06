@@ -4,6 +4,8 @@
 ![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)
 [![Licence: PolyForm Noncommercial](https://img.shields.io/badge/licence-PolyForm%20Noncommercial-orange)](LICENSE)
 
+[nodemeet demo](docs/demo.gif)
+
 **Embed live video meetings and scheduling in your own Python app.** Self-hosted and free for personal, educational and nonprofit use. No paid services, no vendor accounts.
 
 - **Meetings**: an aiohttp server you mount into your app or run on its own. Signed HMAC join tokens with roles (host / participant / viewer). No participant cap. Topology `auto` runs peer-to-peer up to 4 people, then switches to an aiortc SFU. There's also a webinar mode.
