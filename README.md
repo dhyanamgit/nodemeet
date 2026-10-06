@@ -229,6 +229,11 @@ pytest                    # ASGI, cluster, tenancy and concurrency tests need no
 python -m build     # sdist + wheel in dist/
 ```
 
+## Contributors
+
+Everyone who helps is credited in [CONTRIBUTORS.md](CONTRIBUTORS.md): code, docs, bug reports, ideas and reviews all count.
+
+<a href="https://github.com/dhyanamgit/nodemeet/graphs/contributors">[https://contrib.rocks/image?repo=dhyanamgit/nodemeet](https://contrib.rocks/image?repo=dhyanamgit/nodemeet)</a>
 ## Licence
 
 nodemeet is **free for noncommercial use** under the [PolyForm Noncommercial License 1.0.0](LICENSE): personal
