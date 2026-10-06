@@ -164,6 +164,15 @@ class DbmKV(ThreadedKV):
         super().__init__()
         self.path = path
         self.db: Any = None
+        self._pool: Any = None
+
+    async def _run(self, fn: Callable[..., T], *args: Any) -> T:
+        # Python 3.13's default dbm is dbm.sqlite3, whose objects only work on the thread that
+        # created them. So one dedicated worker thread opens the file and runs every operation.
+        if self._pool is None:
+            from concurrent.futures import ThreadPoolExecutor
+            self._pool = ThreadPoolExecutor(max_workers=1, thread_name_prefix="nodemeet-dbm")
+        return await asyncio.get_running_loop().run_in_executor(self._pool, lambda: fn(*args))
 
     async def setup(self) -> None:
         import dbm
@@ -174,6 +183,9 @@ class DbmKV(ThreadedKV):
         if self.db is not None:
             await self._run(self.db.close)
             self.db = None
+        if self._pool is not None:
+            self._pool.shutdown(wait=True)
+            self._pool = None
 
     @staticmethod
     def _k(space: str, key: str) -> bytes:

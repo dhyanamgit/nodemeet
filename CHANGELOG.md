@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.9.6
+- Fixed: the built-in dbm storage failed on Python 3.13 ("SQLite objects created in a thread can only be used in
+  that same thread"). 3.13 made dbm.sqlite3 the default; nodemeet now opens and uses the file on one dedicated thread.
+- CI: one failing Python version no longer cancels the others; newer GitHub action versions.
+- PyPI page now shows `pip install nodemeet`.
+
 ## 0.9.5 - first public release
 - Licence: PolyForm Noncommercial 1.0.0 (free for personal, educational, nonprofit and government use; commercial
   licences from the author). Copyright Dhyanam Shah. Contributions need the agreement in CONTRIBUTING.md.
