@@ -4,7 +4,7 @@
 ![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)
 [![Licence: PolyForm Noncommercial](https://img.shields.io/badge/licence-PolyForm%20Noncommercial-orange)](LICENSE)
 
-<p align="center">[https://raw.githubusercontent.com/dhyanamgit/nodemeet/main/docs/demo.gif](https://raw.githubusercontent.com/dhyanamgit/nodemeet/main/docs/demo.gif)</p>
+<p align="center"><img src="https://raw.githubusercontent.com/dhyanamgit/nodemeet/main/docs/demo.gif" alt="nodemeet demo" width="820"></p>
 
 **Embed live video meetings and scheduling in your own Python app.** Self-hosted and free for personal, educational and nonprofit use. No paid services, no vendor accounts.
 
@@ -235,7 +235,8 @@ python -m build     # sdist + wheel in dist/
 
 Everyone who helps is credited in [CONTRIBUTORS.md](CONTRIBUTORS.md): code, docs, bug reports, ideas and reviews all count.
 
-<a href="https://github.com/dhyanamgit/nodemeet/graphs/contributors">[https://contrib.rocks/image?repo=dhyanamgit/nodemeet](https://contrib.rocks/image?repo=dhyanamgit/nodemeet)</a>
+<a href="https://github.com/dhyanamgit/nodemeet/graphs/contributors"><img src="https://contrib.rocks/image?repo=dhyanamgit/nodemeet" alt="nodemeet contributors"></a>
+
 ## Licence
 
 nodemeet is **free for noncommercial use** under the [PolyForm Noncommercial License 1.0.0](LICENSE): personal
