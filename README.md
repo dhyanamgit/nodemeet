@@ -4,7 +4,7 @@
 ![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)
 [![Licence: PolyForm Noncommercial](https://img.shields.io/badge/licence-PolyForm%20Noncommercial-orange)](LICENSE)
 
-[nodemeet demo](docs/demo.gif)
+<p align="center">[https://raw.githubusercontent.com/dhyanamgit/nodemeet/main/docs/demo.gif](https://raw.githubusercontent.com/dhyanamgit/nodemeet/main/docs/demo.gif)</p>
 
 **Embed live video meetings and scheduling in your own Python app.** Self-hosted and free for personal, educational and nonprofit use. No paid services, no vendor accounts.
 
@@ -231,11 +231,6 @@ pytest                    # ASGI, cluster, tenancy and concurrency tests need no
 python -m build     # sdist + wheel in dist/
 ```
 
-## Contributors
-
-Everyone who helps is credited in [CONTRIBUTORS.md](CONTRIBUTORS.md): code, docs, bug reports, ideas and reviews all count.
-
-<a href="https://github.com/dhyanamgit/nodemeet/graphs/contributors">[https://contrib.rocks/image?repo=dhyanamgit/nodemeet](https://contrib.rocks/image?repo=dhyanamgit/nodemeet)</a>
 ## Contributors
 
 Everyone who helps is credited in [CONTRIBUTORS.md](CONTRIBUTORS.md): code, docs, bug reports, ideas and reviews all count.
