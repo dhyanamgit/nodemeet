@@ -1,5 +1,4 @@
 """Full HTTP + WebSocket stack through the ASGI adapter (no web framework needed)."""
-import asyncio
 from datetime import datetime, timedelta, timezone
 
 from asgi_client import ASGIClient, WSClosed

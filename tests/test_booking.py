@@ -1,6 +1,6 @@
 import os
 import tempfile
-from datetime import date, timedelta
+from datetime import date
 
 import pytest
 

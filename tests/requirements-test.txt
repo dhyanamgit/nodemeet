@@ -5,3 +5,4 @@ sqlalchemy[asyncio]>=2.0
 aiosqlite>=0.19
 cryptography>=41
 duckdb>=1.0
+ruff>=0.4

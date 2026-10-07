@@ -14,7 +14,6 @@ from helpers import run
 from nodemeet import MemoryMailer, NodeMeet
 from nodemeet.events import CATALOG, wants
 from nodemeet.integrations.http_client import HTTPClient, HTTPResult
-from nodemeet.integrations.sms import MemoryNotifier
 from nodemeet.integrations.webhooks import sign_payload
 
 SECRET = "webhooks-v07-secret-long-enough!!"

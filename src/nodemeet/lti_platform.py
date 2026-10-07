@@ -23,7 +23,6 @@ import logging
 import secrets
 import time
 from dataclasses import asdict, dataclass, field
-from html import escape
 from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple
 from urllib.parse import parse_qs, urlencode
 

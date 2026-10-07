@@ -210,7 +210,7 @@ def test_deep_linking_meeting_and_booking():
         r, _, _ = await launch(c, lms, **{C + "custom": {"room": rid}})
         assert f"/r/{rid}#" in r.headers["location"]
         # booking page item -> launch redirects to the booking page, prefilled
-        bstate = sign = None
+        bstate = None
         r, _, _ = await launch(c, lms, roles=("Instructor",), msg="LtiDeepLinkingRequest", **settings)
         bstate = r.text.split('name=state value="')[1].split('"')[0]
         r = await c.request("POST", "/lti/deeplink", body=f"state={bstate}&kind=booking&title=Office+hours&booking=prof-k".encode(), headers=FORM)

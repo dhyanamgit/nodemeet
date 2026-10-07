@@ -61,7 +61,7 @@ def test_google_calendar_connect_busy_and_event_sync():
         ("DELETE", "https://www.googleapis.com/calendar/v3/calendars/primary/events/evt1"): (204, ""),
     })
     meet = make()
-    cal = CalendarService(meet, [GoogleCalendar("cid", "csecret", http=HTTPClient(fake))])
+    _cal = CalendarService(meet, [GoogleCalendar("cid", "csecret", http=HTTPClient(fake))])
 
     async def scenario():
         await meet.bookings.set_availability(Availability.from_hours("lee", "UTC", {"mon-fri": "09:00-17:00"}))

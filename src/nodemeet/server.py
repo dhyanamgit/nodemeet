@@ -33,7 +33,6 @@ from .scheduling.reminders import ReminderScheduler
 from .sfu import MediaBackend, NullBackend, default_backend
 from .signaling import WSTransport, moderate, serve_session
 from .storage.base import Storage
-from .storage.memory import MemoryStorage
 from .branding import BrandingResolver, head_html, public as public_branding
 from .permissions import RoleDefinition, RoleRegistry
 from .tenancy import RateLimiter

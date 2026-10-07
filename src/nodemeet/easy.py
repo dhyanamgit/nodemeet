@@ -11,7 +11,6 @@ from __future__ import annotations
 
 import difflib
 import importlib
-import os
 import re
 from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Tuple, Union
 from urllib.parse import parse_qs, unquote, urlsplit

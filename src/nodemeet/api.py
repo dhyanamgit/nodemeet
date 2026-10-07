@@ -14,7 +14,6 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional
 from .exceptions import (AvailabilityNotFound, BookingNotFound, InvalidToken, RoomFull,
                          RoomNotFound, SlotUnavailable)
 from ._http import HTTPError, Request, Response, Router, json_response, text_response
-from .integrations.webhooks import EVENTS as WEBHOOK_EVENTS
 from .integrations.webhooks import WebhookEndpoint
 from .models import Booking, BookingStatus, RoomConfig, parse_dt, utcnow
 from .scheduling.availability import Availability, ZoneInfo

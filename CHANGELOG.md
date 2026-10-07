@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- CI: Added Ruff linting to CI (`.github/workflows/tests.yml`) and configured `[tool.ruff]` in `pyproject.toml`.
+
 ## 0.9.6
 - Fixed: the built-in dbm storage failed on Python 3.13 ("SQLite objects created in a thread can only be used in
   that same thread"). 3.13 made dbm.sqlite3 the default; nodemeet now opens and uses the file on one dedicated thread.

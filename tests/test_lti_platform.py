@@ -5,7 +5,7 @@ roster sync -> attendance lands in the LMS gradebook."""
 import html
 import json
 import re
-from urllib.parse import parse_qs, urlencode, urlsplit
+from urllib.parse import urlencode, urlsplit
 
 from helpers import run
 from nodemeet import MemoryMailer, NodeMeet
@@ -185,7 +185,7 @@ def test_manual_registration_services_and_security():
         bad = await net("GET", "http://lms.test/lti/nrps/phy101", {"Authorization": "Bearer junk"}, None)
         assert bad.status == 401
         # grade without a line item from deep linking -> nodemeet creates one through AGS
-        out = await lti.send_grade(room, "asha@school.edu", 75, comment="good")
+        _out = await lti.send_grade(room, "asha@school.edu", 75, comment="good")
         assert scores[-1]["userId"] == "s1" and scores[-1]["scoreGiven"] == 75 and scores[-1]["comment"] == "good"
         # results readback + "older score ignored"
         tok = await lti.access_token(p, ["https://purl.imsglobal.org/spec/lti-ags/scope/result.readonly"])
