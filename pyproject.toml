@@ -62,7 +62,7 @@ yaml = ["pyyaml>=6.0"]
 toml = ["tomli>=2.0; python_version < '3.11'"]
 all = ["aiohttp>=3.8", "cryptography>=41", "uvicorn[standard]>=0.23", "aiortc>=1.6", "redis>=5.0",
        "sqlalchemy[asyncio]>=2.0", "aiosqlite>=0.19"]
-dev = ["pytest>=7", "aiohttp>=3.8", "sqlalchemy[asyncio]>=2.0", "aiosqlite>=0.19"]
+dev = ["pytest>=7", "aiohttp>=3.8", "sqlalchemy[asyncio]>=2.0", "aiosqlite>=0.19", "ruff>=0.4"]
 
 [project.scripts]
 nodemeet = "nodemeet.cli:main"
@@ -83,3 +83,22 @@ nodemeet = ["py.typed", "static/*", "templates/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "F",  # pyflakes
+    "W",  # pycodestyle warnings
+]
+ignore = [
+    "E501",  # line too long
+    "E702",  # multiple statements on one line (semicolon)
+    "E731",  # do not assign a lambda expression, use a def
+    "E402",  # module level import not at top of file
+    "E741",  # ambiguous variable name
+]
+

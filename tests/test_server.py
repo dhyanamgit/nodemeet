@@ -1,6 +1,5 @@
 """HTTP + WebSocket tests (need aiohttp; run with plain pytest)."""
 import asyncio
-import json
 from datetime import datetime, timedelta, timezone
 
 import pytest

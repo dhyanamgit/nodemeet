@@ -12,7 +12,6 @@ import sqlite3
 import tempfile
 from datetime import datetime, timedelta, timezone
 
-import pytest
 from helpers import run
 from nodemeet.integrations.webhooks import WebhookEndpoint
 from nodemeet.models import Booking, BookingStatus, ChatMessage, RoomConfig

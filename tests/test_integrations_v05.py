@@ -4,7 +4,7 @@ against fake HTTP transports that check each provider's documented request shape
 import base64
 import json
 from datetime import datetime, timedelta, timezone
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs
 
 import pytest
 from asgi_client import ASGIClient

@@ -26,7 +26,7 @@ SIGNATURE_HEADER = "X-NodeMeet-Signature"
 EVENT_HEADER = "X-NodeMeet-Event"
 DELIVERY_HEADER = "X-NodeMeet-Delivery"
 
-from ..events import EVENTS, wants as _wants  # noqa: E402  (full catalogue: nodemeet.events)
+from ..events import wants as _wants  # noqa: E402  (full catalogue: nodemeet.events)
 
 # (url, body, headers, timeout) -> HTTP status code
 Transport = Callable[[str, bytes, Dict[str, str], float], Awaitable[int]]

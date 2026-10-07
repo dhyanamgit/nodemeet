@@ -23,7 +23,7 @@ import inspect
 import logging
 import secrets
 from html import escape
-from typing import TYPE_CHECKING, Any, Callable, Dict, Iterable, List, Optional, Sequence
+from typing import TYPE_CHECKING, Any, Callable, Dict, Iterable, Optional, Sequence
 from urllib.parse import urlencode
 
 from ._http import HTTPError as APIError, Request, Response, Router, text_response

@@ -103,7 +103,7 @@ def decrypt_payload(body: bytes, ua_private_b64: str, auth: str) -> bytes:
     """Receiver side of RFC 8291 (used by the tests; handy for debugging)."""
     ec = _crypto()
     from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-    salt, (rs, idlen) = body[:16], struct.unpack("!IB", body[16:21])
+    salt, (_rs, idlen) = body[:16], struct.unpack("!IB", body[16:21])
     as_public, cipher = body[21:21 + idlen], body[21 + idlen:]
     ua_key = _private_key(ua_private_b64)
     ua_public = _public_bytes(ua_key)

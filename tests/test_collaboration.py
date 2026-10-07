@@ -1,5 +1,4 @@
 """Polls, Q&A, whiteboard, breakout rooms, recording, captions, lobby extras, device bans."""
-import asyncio
 import tempfile
 
 from asgi_client import ASGIClient
